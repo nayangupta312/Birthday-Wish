@@ -1,0 +1,239 @@
+/* ============================================================
+   LOADING SCREEN — Birthday Theme
+   ============================================================ */
+
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: #0a051b;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(255, 64, 129, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(124, 58, 237, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.10) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.04);
+}
+
+/* ---- Stars background ---- */
+.ls-stars-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ls-star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: ls-twinkle var(--tw-dur, 2.4s) ease-in-out infinite var(--tw-delay, 0s);
+    opacity: 0;
+}
+
+@keyframes ls-twinkle {
+    0%, 100% { opacity: 0;   transform: scale(0.6); }
+    50%       { opacity: var(--tw-op, 0.85); transform: scale(1.1); }
+}
+
+/* ---- Floating sparkles ---- */
+.ls-sparkle {
+    position: absolute;
+    pointer-events: none;
+    animation: ls-sparkle-rise var(--sp-dur, 4s) ease-in-out infinite var(--sp-delay, 0s);
+    opacity: 0;
+    font-size: var(--sp-size, 16px);
+    filter: drop-shadow(0 0 6px currentColor);
+}
+
+@keyframes ls-sparkle-rise {
+    0%   { transform: translateY(0) scale(0.7) rotate(0deg); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 0.7; }
+    100% { transform: translateY(-80px) scale(1.2) rotate(30deg); opacity: 0; }
+}
+
+/* ---- Crown Icon ---- */
+.ls-crown-wrap {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin-bottom: 28px;
+}
+
+.ls-crown-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #ff4081, #a855f7, #fde047, #ff4081);
+    animation: ls-spin 6s linear infinite;
+    filter: blur(1px);
+    opacity: 0.9;
+}
+
+@keyframes ls-spin {
+    to { transform: rotate(360deg); }
+}
+
+.ls-crown-inner {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: #0a051b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    animation: ls-crown-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ls-crown-pulse {
+    0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 10px #fde047); }
+    50%       { transform: scale(1.08); filter: drop-shadow(0 0 24px #ff4081) drop-shadow(0 0 36px #a855f7); }
+}
+
+/* ---- Title text ---- */
+.ls-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(90deg, #ff4081, #fde047, #a855f7, #ff4081);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: ls-shine 3s linear infinite;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    margin-bottom: 6px;
+}
+
+@keyframes ls-shine {
+    to { background-position: 200% center; }
+}
+
+.ls-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(0.75rem, 2.5vw, 1rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 192, 220, 0.75);
+    font-weight: 300;
+    margin-bottom: 44px;
+    animation: ls-fade-in 1s ease 0.4s both;
+}
+
+@keyframes ls-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Progress bar ---- */
+.ls-progress-wrap {
+    width: clamp(220px, 55vw, 420px);
+    height: 6px;
+    background: rgba(255, 64, 129, 0.15);
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 12px rgba(255, 64, 129, 0.2);
+    border: 1px solid rgba(255, 105, 180, 0.25);
+}
+
+.ls-progress-bar {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #ff4081, #a855f7, #fde047);
+    background-size: 200% 100%;
+    animation: ls-bar-fill 7.5s cubic-bezier(0.3, 0, 0.7, 1) forwards,
+               ls-bar-shimmer 1.8s linear infinite;
+    width: 0%;
+}
+
+@keyframes ls-bar-fill {
+    0%   { width: 0%; }
+    15%  { width: 18%; }
+    35%  { width: 40%; }
+    55%  { width: 62%; }
+    75%  { width: 80%; }
+    90%  { width: 92%; }
+    100% { width: 100%; }
+}
+
+@keyframes ls-bar-shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+/* ---- Loading label ---- */
+.ls-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 192, 220, 0.55);
+    margin-top: 14px;
+    animation: ls-label-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes ls-label-pulse {
+    0%, 100% { opacity: 0.55; }
+    50%       { opacity: 1; }
+}
+
+/* ---- Floating emoji decorations ---- */
+.ls-float-emoji {
+    position: absolute;
+    pointer-events: none;
+    font-size: var(--fe-size, 24px);
+    animation: ls-float-drift var(--fe-dur, 6s) ease-in-out infinite var(--fe-delay, 0s);
+    opacity: 0.65;
+    filter: drop-shadow(0 0 8px rgba(255, 64, 129, 0.5));
+}
+
+@keyframes ls-float-drift {
+    0%, 100% { transform: translateY(0) rotate(var(--fe-rot0, -5deg)); opacity: 0.55; }
+    50%       { transform: translateY(-18px) rotate(var(--fe-rot1, 6deg)); opacity: 0.8; }
+}
+
+/* ---- Glowing orbs ---- */
+.ls-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    animation: ls-orb-breathe var(--orb-dur, 5s) ease-in-out infinite var(--orb-delay, 0s);
+    opacity: 0.35;
+}
+
+@keyframes ls-orb-breathe {
+    0%, 100% { transform: scale(1);    opacity: 0.3; }
+    50%       { transform: scale(1.25); opacity: 0.5; }
+}
+
+/* ---- Entry animation for center content ---- */
+.ls-center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: ls-center-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes ls-center-in {
+    from { opacity: 0; transform: scale(0.82) translateY(30px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
+}

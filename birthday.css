@@ -1,0 +1,161 @@
+:root {
+            --bg-primary: #0a051b;
+            --bg-secondary: #170d36;
+            --text-primary: #f8fafc;
+            --text-accent: #ff4081;
+            --card-bg: rgba(25, 15, 50, 0.75);
+            --border-color: rgba(255, 105, 180, 0.25);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 64, 129, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(124, 58, 237, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.1) 0%, transparent 60%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Candle Flame Flicker */
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
+            25% { transform: scale(1.15) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 15px #f97316); }
+            50% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
+            75% { transform: scale(1.08) rotate(2deg); opacity: 0.98; }
+        }
+
+        .flame {
+            animation: flicker 1.2s infinite ease-in-out;
+            transform-origin: center bottom;
+            filter: drop-shadow(0 0 10px #f97316) drop-shadow(0 0 25px #eab308);
+        }
+
+        /* Rising Smoke */
+        @keyframes riseSmoke {
+            0% { transform: translateY(0) scale(0.5); opacity: 0.8; }
+            100% { transform: translateY(-50px) scale(2.5); opacity: 0; }
+        }
+
+        .smoke {
+            animation: riseSmoke 1.6s forwards ease-out;
+        }
+
+        /* Floating Balloon Physics */
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            50% { transform: translateY(50vh) rotate(8deg); }
+            100% { transform: translateY(-20vh) rotate(-8deg); }
+        }
+
+        .balloon {
+            position: fixed;
+            bottom: -120px;
+            cursor: pointer;
+            z-index: 25;
+            transition: transform 0.15s ease;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .balloon:hover {
+            transform: scale(1.15) !important;
+        }
+
+        /* Balloon Pop Heart Animation */
+        @keyframes popHeart {
+            0% { transform: scale(0.5) translateY(0); opacity: 1; }
+            100% { transform: scale(1.8) translateY(-40px); opacity: 0; }
+        }
+
+        .pop-particle {
+            position: absolute;
+            pointer-events: none;
+            animation: popHeart 0.8s forwards ease-out;
+            z-index: 999;
+        }
+
+        /* Sparkle Trail Effect */
+        .sparkle-trail {
+            position: fixed;
+            pointer-events: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff, #ff4081);
+            box-shadow: 0 0 10px #ff4081, 0 0 20px #fde047;
+            animation: sparkleFade 0.6s linear forwards;
+            z-index: 9999;
+        }
+
+        @keyframes sparkleFade {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: scale(0) rotate(180deg); opacity: 0; }
+        }
+
+        /* Floating Sky Wish Lantern Animation */
+        @keyframes floatWishLantern {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-115vh) translateX(60px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .wish-lantern {
+            position: fixed;
+            bottom: -100px;
+            z-index: 35;
+            cursor: pointer;
+            pointer-events: auto;
+            animation: floatWishLantern 14s ease-in forwards;
+            filter: drop-shadow(0 0 20px #f97316) drop-shadow(0 0 40px #eab308);
+            transition: filter 0.2s;
+        }
+
+        .wish-lantern:hover {
+            filter: drop-shadow(0 0 30px #ff4081) drop-shadow(0 0 50px #fde047);
+        }
+
+        /* 3D Tilt Card */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Shimmer text */
+        .shimmer-text {
+            background: linear-gradient(90deg, #ff4081, #fde047, #a855f7, #ff4081);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(10, 5, 27, 0.8); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 64, 129, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 64, 129, 0.7); }
